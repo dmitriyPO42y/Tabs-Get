@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout 
+       xmlns:android="http://schemas.android.com/apk/res/android"
+       android:layout_width="match_parent"
+       android:layout_height="match_parent"
+        android:background="@color/all_background">
+      <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <LinearLayout 
+                  android:layout_width="match_parent"
+                  android:layout_height="wrap_content"
+                  android:orientation="vertical">
+    <TextView
+        android:text="логин"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:gravity="center_vertical"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="20dp"
+        android:textColor="#8f8e8e"
+        android:id="@+id/textView1" />
+    <FrameLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content">
+        <EditText
+            android:background="@drawable/textEdit_style"
+            android:inputType="textPersonName"
+            android:layout_width="match_parent"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:layout_height="wrap_content"
+            android:id="@+id/input_login" />
+        <ImageView
+            android:layout_marginLeft="26dp"
+            android:layout_width="26dp"
+            android:layout_height="20dp"
+            android:layout_gravity="left|center_vertical"
+            android:id="@+id/log_ico"
+            android:src="@drawable/login_icon" />
+    </FrameLayout>
+    <TextView
+        android:text="пароль"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:gravity="center_vertical"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:textColor="#8f8e8e"
+        android:id="@+id/lb_reg" />
+  
+    <FrameLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content">
+    <EditText
+        android:background="@drawable/textEdit_style"
+        android:inputType="textPassword"
+        android:layout_width="match_parent"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_height="wrap_content"
+        android:id="@+id/input_password" />
+    <ImageView
+            android:layout_marginLeft="28dp"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_gravity="left|center_vertical"
+            android:id="@+id/log_ico"
+            android:src="@drawable/pass_icon" />
+    </FrameLayout>
+    <Button
+        android:background="@drawable/button_style"
+        android:text="Вход"
+        android:layout_width="match_parent"
+        android:layout_marginTop="40dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_height="wrap_content"
+        android:id="@+id/auth_btn"
+        style="@style/button_text" />
+    <TextView
+        android:text="восстановить пароль"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="10dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="#a5a5a5"
+        android:id="@+id/restore_pass_btn" />
+    <RelativeLayout
+        android:layout_width="340dp"
+        android:layout_marginTop="50dp"
+        android:layout_marginBottom="50dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_height="wrap_content">
+        <Button
+            android:text=" "
+            android:background="@drawable/vk_icon"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:id="@+id/auth_vk_btn" />
+        <Button
+            android:text=" "
+            android:background="@drawable/g_icon"
+            android:layout_marginLeft="145dp"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:id="@+id/auth_g_btn" />
+        <Button
+            android:text=" "
+            android:background="@drawable/fb_icon"
+            android:layout_marginLeft="290dp"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:id="@+id/auth_f_btn" />
+    </RelativeLayout>
+      </LinearLayout>
+      </ScrollView>
+</LinearLayout>

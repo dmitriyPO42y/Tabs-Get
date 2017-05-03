@@ -1,0 +1,38 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+  <group android:checkableBehavior="single">
+    <item
+      android:id="@+id/nav_recent"
+      
+      android:title="Последние" />
+    <!--android:icon="@drawable/ic_home_black_24dp"-->
+    <item
+      android:id="@+id/nav_local"
+      
+      android:title="Локальные" />
+    <!--android:icon="@drawable/ic_question_answer_black_24dp"-->
+    <item
+      android:id="@+id/nav_storage"
+      
+      android:title="Хранилище" />
+    <!--android:icon="@drawable/ic_supervisor_account_black_24dp"-->
+    <item
+      android:id="@+id/nav_profile"
+      
+      android:title="Профиль" />
+  <!--android:icon="@drawable/ic_devices_black_24dp"-->
+    <item
+      android:id="@+id/nav_about"
+      
+      android:title="О программе" />
+    
+  </group>
+  <item>
+    <menu>
+      <item
+        android:id="@+id/nav_exit"
+      
+        android:title="Выход" />
+    </menu>
+  </item>
+</menu>

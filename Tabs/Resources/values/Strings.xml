@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="Hello">Hello World, Click Me!</string>
+    <string name="ApplicationName">Tabs</string>
+  <string name="open_drawer">Open drawer</string>
+  <string name="close_drawer">Close drawer</string>
+  <string name="nav_recent">Последние</string>
+  <string name="nav_local">Локальные</string>
+  <string name="nav_storage">Хранилище</string>
+  <string name="nav_profile">Профиль</string>
+  <string name="nav_about">О программе</string>
+</resources>

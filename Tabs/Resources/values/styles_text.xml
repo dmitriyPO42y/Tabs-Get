@@ -1,0 +1,7 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<resources>
+  <style name="button_text" >
+    <item name="android:textColor" >#ffffff</item>
+    <item name="android:textSize" >20dp</item>
+  </style>
+</resources>
