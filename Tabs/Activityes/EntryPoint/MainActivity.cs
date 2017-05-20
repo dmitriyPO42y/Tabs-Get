@@ -1,17 +1,21 @@
 ﻿using Android.App;
 using Android.OS;
-using System;
+using System.IO;
 using Java.Lang;
 using Android.Support.V4.App;
 using com.refractored;
 using Android.Support.V4.View;
 using Android.Support.V7.App;
+using SQLite;
+using Tabs.dataBase.Actions;
 
 namespace Tabs.Activityes.EntryPoint
 {
     [Activity(Label = "Tabs", MainLauncher = true, Icon = "@drawable/icon", Theme = "@style/Theme.AppCompat.Light.NoActionBar")]
     public class MainActivity : AppCompatActivity
     {
+        static DataBase db;
+        
         MyAdapter adapter;
         ViewPager pager;
         protected override void OnCreate(Bundle bundle)
@@ -19,6 +23,8 @@ namespace Tabs.Activityes.EntryPoint
             base.OnCreate(bundle);
             SetContentView(Resource.Layout.Main);
 
+            db = new DataBase();
+            
             adapter = new MyAdapter(SupportFragmentManager);
             pager = FindViewById<ViewPager>(Resource.Id.pager);
             PagerSlidingTabStrip tabs = (PagerSlidingTabStrip)FindViewById(Resource.Id.tabs);
@@ -55,9 +61,9 @@ namespace Tabs.Activityes.EntryPoint
             public override Android.Support.V4.App.Fragment GetItem(int position)
             {
                 if (position == 0)
-                    return LoginActivity.NewInstance(position);
+                    return LoginActivity.NewInstance(position, db);
                 else
-                    return RegistrationActivity.NewInstance(position);
+                    return RegistrationActivity.NewInstance(position, db);
             }
         }
     }

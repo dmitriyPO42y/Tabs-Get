@@ -1,21 +1,17 @@
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 
 using Android.App;
-using Android.Content;
 using Android.OS;
-using Android.Runtime;
-using Android.Views;
 using Android.Support.V4.Widget;
 using Android.Support.V7.App;
 using Android.Support.V7.Widget;
 using Android.Support.Design.Widget;
 using SupportFragment = Android.Support.V4.App.Fragment;
-using Android.Support.V4.App;
 using Widgets = Android.Widget;
-/*new comment*/
+using Android.Content;
+using Tabs.Core.Preferences;
+using Tabs.Activityes.EntryPoint;
+
 namespace Tabs.Activityes.Documents
 {
     [Activity(MainLauncher = false, Icon = "@drawable/icon", Theme = "@style/Theme.AppCompat.Light.NoActionBar")]
@@ -29,63 +25,25 @@ namespace Tabs.Activityes.Documents
         private Fragment_Storage mFragment_storage;
         private Fragment_About mFragment_about;
         private Stack<SupportFragment> mStackFragments;
-        DrawerLayout drawerLayout;
+        private DrawerLayout drawerLayout;
 
         protected override void OnCreate(Bundle bundle)
         {
             base.OnCreate(bundle);
 
-            #region fragments
-            mFragmentContainer = FindViewById<Widgets.FrameLayout>(Resource.Id.fragmentContainer);
+            // Создаем и добавляем фрагменты (рабочие страницы для каждого пункта меню)
+            CreateFragments("tttt.pdf");
 
-            mFragment_local = new Fragment_Local();
-            mFragment_recent = new Fragment_Recent();
-            mFragment_about = new Fragment_About();
-            mFragment_profile = new Fragment_Profile();
-            mFragment_storage = new Fragment_Storage();
-
-            mStackFragments = new Stack<SupportFragment>();
-
-            var trans = SupportFragmentManager.BeginTransaction();
-            trans.Add(Resource.Id.fragmentContainer, mFragment_about, "mFragment_about");
-            trans.Hide(mFragment_about);
-
-            trans.Add(Resource.Id.fragmentContainer, mFragment_profile, "mFragment_profile");
-            trans.Hide(mFragment_profile);
-
-            trans.Add(Resource.Id.fragmentContainer, mFragment_storage, "mFragment_storage");
-            trans.Hide(mFragment_storage);
-
-            trans.Add(Resource.Id.fragmentContainer, mFragment_local, "mFragment_local");
-            trans.Hide(mFragment_local);
-
-            trans.Add(Resource.Id.fragmentContainer, mFragment_recent, "mFragment_recent");
-            trans.Commit();
-
-            mCurrentFragment = mFragment_recent;
-
-            #endregion
-
-
+            // Устанавливаем вьюху
             SetContentView(Resource.Layout.drawer_layout);
-            drawerLayout = FindViewById<DrawerLayout>(Resource.Id.drawer_layout);
 
-            // Init toolbar
-            var toolbar = FindViewById<Toolbar>(Resource.Id.toolbar);
-            SetSupportActionBar(toolbar);
+            // Создаем и добавляем ToolBar
+            CreateToolbar();
 
-            toolbar.SetBackgroundColor(Android.Graphics.Color.Rgb(75, 121, 187));
+            // TODO Придумать изящней
+            //this.Title = GetString(Resource.String.nav_recent);
+            //ShowFragment(mFragment_recent);
             
-            // Attach item selected handler to navigation view
-            var navigationView = FindViewById<NavigationView>(Resource.Id.nav_view);
-            navigationView.NavigationItemSelected += NavigationView_NavigationItemSelected;
-            
-
-            // Create ActionBarDrawerToggle button and add it to the toolbar
-            var drawerToggle = new Android.Support.V7.App.ActionBarDrawerToggle(this, drawerLayout, toolbar, Resource.String.open_drawer, Resource.String.close_drawer);
-            drawerLayout.SetDrawerListener(drawerToggle);
-
-            drawerToggle.SyncState();
         }
 
         void NavigationView_NavigationItemSelected(object sender, NavigationView.NavigationItemSelectedEventArgs e)
@@ -113,13 +71,19 @@ namespace Tabs.Activityes.Documents
                     ShowFragment(mFragment_about);
                     break;
                 case (Resource.Id.nav_exit):
-                    // React on 'Discussion' selection
+                    Context mContext = Android.App.Application.Context;
+                    AppPreferences app = new AppPreferences(mContext);
+                    app.removeUserSession();
+                    Intent intent = new Intent(this , typeof(MainActivity));
+                    StartActivity(intent);
                     break;
             }
 
              // Close drawer
              drawerLayout.CloseDrawers();
         }
+
+        #region Fragments
 
         private void ShowFragment(SupportFragment fragment)
         {
@@ -142,5 +106,69 @@ namespace Tabs.Activityes.Documents
 
             mCurrentFragment = fragment;
         }
+
+        private void CreateFragments(string fileName = null) // по умолчанию файл не определен
+        {
+            mFragmentContainer = FindViewById<Widgets.FrameLayout>(Resource.Id.fragmentContainer);
+
+            mFragment_local = new Fragment_Local();
+            mFragment_recent = new Fragment_Recent();
+            mFragment_about = new Fragment_About();
+            mFragment_profile = new Fragment_Profile();
+            mFragment_storage = new Fragment_Storage();
+
+            if (!string.IsNullOrEmpty(fileName))
+            {
+                mFragment_local.fileName = fileName;
+            }
+
+            mStackFragments = new Stack<SupportFragment>();
+
+            var trans = SupportFragmentManager.BeginTransaction();
+            trans.Add(Resource.Id.fragmentContainer, mFragment_about, "mFragment_about");
+            trans.Hide(mFragment_about);
+
+            trans.Add(Resource.Id.fragmentContainer, mFragment_profile, "mFragment_profile");
+            trans.Hide(mFragment_profile);
+
+            trans.Add(Resource.Id.fragmentContainer, mFragment_storage, "mFragment_storage");
+            trans.Hide(mFragment_storage);
+
+            trans.Add(Resource.Id.fragmentContainer, mFragment_local, "mFragment_local");
+            trans.Hide(mFragment_local);
+
+            trans.Add(Resource.Id.fragmentContainer, mFragment_recent, "mFragment_recent");
+            trans.Commit();
+
+            mCurrentFragment = mFragment_recent;
+        }
+
+        #endregion
+
+        #region Toolbar
+
+        private void CreateToolbar()
+        {
+            drawerLayout = FindViewById<DrawerLayout>(Resource.Id.drawer_layout);
+
+            // Init toolbar
+            var toolbar = FindViewById<Toolbar>(Resource.Id.toolbar);
+            SetSupportActionBar(toolbar);
+
+            toolbar.SetBackgroundColor(Android.Graphics.Color.Rgb(75, 121, 187));
+
+            // Attach item selected handler to navigation view
+            var navigationView = FindViewById<NavigationView>(Resource.Id.nav_view);
+            navigationView.NavigationItemSelected += NavigationView_NavigationItemSelected;
+
+
+            // Create ActionBarDrawerToggle button and add it to the toolbar
+            var drawerToggle = new Android.Support.V7.App.ActionBarDrawerToggle(this, drawerLayout, toolbar, Resource.String.open_drawer, Resource.String.close_drawer);
+            drawerLayout.SetDrawerListener(drawerToggle);
+
+            drawerToggle.SyncState();
+        }
+
+        #endregion
     }
 }

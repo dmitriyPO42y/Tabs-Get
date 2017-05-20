@@ -5,10 +5,8 @@
     android:layout_height="match_parent"
     android:layout_marginTop="?attr/actionBarSize"
     android:background="#C2C2C2">
-  <TextView
-       android:id="@+id/txtFragment1"
-       android:layout_width="wrap_content"
-       android:layout_height="wrap_content"
-       android:textColor="#000"
-       android:text="Fragment local" />
+<com.joanzapata.pdfview.PDFView
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:id="@+id/pdfView"/>
 </LinearLayout>

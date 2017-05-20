@@ -11,6 +11,15 @@
                   android:layout_width="match_parent"
                   android:layout_height="wrap_content"
                   android:orientation="vertical">
+     <TextView
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:gravity="center_vertical"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="20dp"
+        android:textColor="#8f8e8e"
+        android:id="@+id/errorText" />
     <TextView
         android:text="логин"
         android:textAppearance="?android:attr/textAppearanceLarge"
